@@ -77,7 +77,7 @@ global_totals_vs_lulucf <- global_totals_vs_lulucf %>%
   labs(x= "Year", y = "Gt CO2e", color = element_blank(),
        title = "Effect of LULUCF on Global Greenhouse Gas Emission Totals\n") +
   theme_classic() +
-  theme(legend.position = c(0.15, 0.9), 
+  theme(legend.position = c(0.15, 0.91), 
         legend.key.size = unit(0.2, "cm"), 
         legend.key.spacing.y = unit(.2, "cm"),
         legend.background = element_rect(fill = "white", color = 1), 
