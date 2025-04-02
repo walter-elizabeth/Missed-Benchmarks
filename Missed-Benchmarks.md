@@ -69,8 +69,8 @@ global_totals_vs_lulucf <- world %>%
 # graphing the global observations of total_incl_LULUCF, total_excl_LULUCF, and LULUCF over time
 
 global_totals_vs_lulucf <- global_totals_vs_lulucf %>%
-  ggplot(aes(year, GtCO2e, color = category), linewidth = 1.2) +
-  geom_line(aes(year, GtCO2e), linewidth = .9) + #aes(year, GtCO2e), linewidth = 1.5
+  ggplot(aes(year, GtCO2e, color = category)) +
+  geom_line(aes(year, GtCO2e), linewidth = 1.2) + 
   geom_hline(yintercept = 0, linewidth = .5) +
   coord_cartesian(xlim = c(1970, 2020.5), expand = FALSE) +
   scale_y_continuous(limits = c(-3, 50)) +
@@ -268,7 +268,7 @@ df_agg_top_10_n_world_2015 <- union(df_agg_top_10, world)
 # plot before aggregating
 plot_world_over_time <- world %>%
   ggplot(aes(year, total_excl_LULUCF)) +
-  geom_line(color = "#3F80FF", linewidth = 1.2) +
+  geom_line(color = "#3CA4BD", linewidth = 1.2) +
   theme_classic() +
   coord_cartesian(xlim = c(1850, 2021), ylim = c(0,50), expand = FALSE) +
   theme(text = element_text(family = "Lato"),
@@ -654,7 +654,7 @@ plot_agg10_nworld_over_time <- df_agg_top_10_n_world_2015 %>%
   geom_line(linewidth = 1.2) +
   coord_cartesian(xlim = c(1920, 2020), ylim = c(0, 50), expand = FALSE) +
   theme_classic() +
-  scale_color_manual(values = c("#3CA4BD","#009E78")) +
+  scale_color_manual(values = c("#3F80FF","#009E78")) +
   #scale_color_paletteer_d("palettetown::celebi") +
   theme(axis.line.y = element_blank(),
         axis.ticks.y.left = element_blank(),
