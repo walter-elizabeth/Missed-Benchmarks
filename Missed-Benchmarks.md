@@ -61,25 +61,31 @@ co2_1850_w_world <- dplyr::union(co2_1850, world)
 ```
 
 ``` r
-# explore effects of LULUCF on global total and whether to include
-# so the unfccc ndcs do not include LULUCF? which ones? all of them?
+# explore effects of LULUCF on global total
 
 global_totals_vs_lulucf <- world %>%
   pivot_longer(total_excl_LULUCF:total_incl_LULUCF:LULUCF, names_to = "category", values_to = "GtCO2e") 
 
+# graphing the global observations of total_incl_LULUCF, total_excl_LULUCF, and LULUCF over time
+
 global_totals_vs_lulucf <- global_totals_vs_lulucf %>%
-  ggplot(aes(year, GtCO2e, color = category), linewidth = 1) +
+  ggplot(aes(year, GtCO2e, color = category), linewidth = 1.2) +
   geom_line(aes(year, GtCO2e), linewidth = .9) + #aes(year, GtCO2e), linewidth = 1.5
   geom_hline(yintercept = 0, linewidth = .5) +
-  coord_cartesian(xlim = c(1970, 2021), expand = FALSE) +
+  coord_cartesian(xlim = c(1970, 2020.5), expand = FALSE) +
   scale_y_continuous(limits = c(-3, 50)) +
-  labs(x= "Year", color = element_blank()) +
+  labs(x= "Year", y = "Gt CO2e", color = element_blank(),
+       title = "Effect of LULUCF on Global Greenhouse Gas Emission Totals
+       ") +
   theme_classic() +
   theme(legend.position = c(0.15, 0.85), 
         legend.key.size = unit(0.2, "cm"), 
         legend.key.spacing.y = unit(.2, "cm"),
         legend.background = element_rect(fill = "white", color = 1), 
         legend.title = element_blank(), 
+        axis.ticks.y.left = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major.y = element_line(color = "grey"),
         text = element_text(family = "Lato"))
 
 
@@ -190,9 +196,9 @@ ls <- all_together_cumulative %>% filter(year == 2020)  %>% arrange(desc(cumsum_
 #DIY PALETTES
 mypalette <- c("#3CA4BD",  "#03652e", "#BED4F9FF", "#009E78", "#3F80FF", '#1dd212', "#ccfd80", "#073F80",  "#ACE8F2", "#466830",  "#1dd280", "#466870")
 
-mypalette2 <- c( "#3F80FF", "#073F80", "#A8D2F9FF", "#BED1F9FF","#009E78","#03652e", "#3CA4BD", "#ACE8F2", "#1dd280", "#466830",  "#466870", '#1dd212', "#ccfd10",  "#226670")
+mypalette2 <- c("#A8D2F9FF", "#BED1F9FF","#3F80FF", "#073F80", "#009E78","#03652e", "#3CA4BD", "#ACE8F2", "#1dd280", "#466830",  "#466870", '#1dd212', "#ccfd10",  "#226670")
 
-mypalette3 <- c( "#8fdc11", "#ccfd10", "#3F80FF", "#073F80", "#A8D2F9FF", "#BED1F9FF","#009E78", "#03652e", "#3CA4BD", "#ACE8F2", "#466830",  "#466870")
+mypalette3 <- c('#1dd212', "#8fdc11", "#A8D2F9FF", "#BED1F9FF","#3F80FF", "#073F80", "#009E78", "#03652e", "#3CA4BD", "#ACE8F2", "#466830",  "#466870")
 ```
 
 ``` r
@@ -210,14 +216,16 @@ plot_dfs_combined <- dfs_combined %>%
 #  scale_fill_paletteer_d("ggprism::floral2") + 
 #  scale_fill_paletteer_d("ggthemes::hc_fg") + 
   theme(text = element_text(family = "Lato"),
-        plot.title = element_text(hjust = 0.5),
-        plot.subtitle = element_text(hjust = 0.5),
+        axis.ticks.y.left = element_blank(),
+        axis.line.y = element_blank(),
+       # plot.title = element_text(hjust = 0.5),
+      #  plot.subtitle = element_text(hjust = 0.5),
         panel.grid.major.y = element_line(color = "grey"),
         plot.caption = element_text(hjust = 0)) +
   labs(x = "Year",
        y = "Gt CO2e",
        subtitle = "Yearly GHG Emissions**, 1950 - 2020",
-       title = "Ten Greatest Emitters, Cumulatively* & All Others",
+       title = "Ten Greatest Cumulative Emitters* & All Others",
        caption = "*Rankings as of 2020
 **Excluding LULUCF",
        fill = "Country")
@@ -251,7 +259,7 @@ df_agg_top_10 <- df_top_10_2015 %>%
   summarize(total_incl_LULUCF = sum(total_incl_LULUCF),
             total_excl_LULUCF = sum(total_excl_LULUCF),
             LULUCF = sum(LULUCF)) %>%
-  mutate(country = "Aggregated 10")
+  mutate(country = "Top Contributors")
 
 # appending "World"
 df_agg_top_10_n_world_2015 <- union(df_agg_top_10, world) 
@@ -261,12 +269,16 @@ df_agg_top_10_n_world_2015 <- union(df_agg_top_10, world)
 # plot before aggregating
 plot_world_over_time <- world %>%
   ggplot(aes(year, total_excl_LULUCF)) +
-  geom_line() +
-  theme_bw() +
+  geom_line(color = "#3F80FF", linewidth = 1.2) +
+  theme_classic() +
   coord_cartesian(xlim = c(1850, 2021), ylim = c(0,50), expand = FALSE) +
   theme(text = element_text(family = "Lato"),
-                plot.title = element_text(hjust = 0.5)) +
-  labs(x = "Year", y = "Gt CO2e", title = "Global Emissions Over Time")
+        axis.ticks.y.left = element_blank(),
+      #  plot.title = element_text(hjust = 0.5),
+        panel.grid.major.y = element_line(color = "grey"),
+        axis.line.y = element_blank(),
+        plot.caption = element_text(face = "italic")) +
+  labs(x = "Year", y = "Gt CO2e", title = "Global Greenhouse Gas Emissions\n")
 print(plot_world_over_time)
 ```
 
@@ -504,7 +516,7 @@ bau_agg10_df <- data.frame(year = c(2016, 2017, 2018, 2019, 2020,
                                     2021, 2022, 2023, 2024, 2025, 
                                     2026, 2027, 2028, 2029, 2030),
                            total_excl_LULUCF = bau_agg10_predict,
-                           country = "Aggregated 10",
+                           country = "Top Contributors",
                            total_incl_LULUCF = NA, 
                            LULUCF = NA)
   
@@ -515,7 +527,7 @@ agg10_2015_total <- df_agg_top_10 %>% filter(year == 2015)
 
 bau_df_2 <- rbind(bau_df, world_2015_total, agg10_2015_total)
 
-bau_df_2$country <- with(bau_df_2, factor(country, levels = c("World", "Aggregated 10"), labels = c("World_Pred", "Aggregated 10_Pred")))
+bau_df_2$country <- with(bau_df_2, factor(country, levels = c("World", "Top Contributors"), labels = c("World_Pred", "Top Contributors_Pred")))
 ```
 
 ``` r
@@ -561,7 +573,7 @@ pred_df <- data.frame(year = c(2020, 2021, 2022, 2023, 2024, 2025,
 pred_10_df <- data.frame(year = c(2020, 2021, 2022, 2023, 2024, 2025, 
                                   2026, 2027, 2028, 2029, 2030),
                          total_excl_LULUCF = pred_agg10,
-                         country = "Aggregated 10", # i need to be able to append this 
+                         country = "Top Contributors", # i need to be able to append this 
                          total_incl_LULUCF = NA, # to the bottom of df_agg_top_10_n_world_1015
                          LULUCF = NA)
 
@@ -572,7 +584,7 @@ df_agg10_world_2015_2030 <- union(df_agg_top_10_n_world_2015, pred_df)
 df_agg10_world_2020_2030 <- df_agg10_world_2015_2030 %>%
   filter(year %in% (2020:2030))
 
-df_agg10_world_2020_2030$country <- with(df_agg10_world_2020_2030, factor(country, levels = c("World", "Aggregated 10"), labels = c("World_Pred", "Aggregated 10_Pred")))
+df_agg10_world_2020_2030$country <- with(df_agg10_world_2020_2030, factor(country, levels = c("World", "Top Contributors"), labels = c("World_Pred", "Top Contributors_Pred")))
 ```
 
 ``` r
@@ -584,13 +596,13 @@ y_start_agg10 <- ndc_line %>%
 y_start_agg10 <- y_start_agg10$total_excl_LULUCF
 
 bau_yend_agg10 <- bau_df_2 %>%
-  filter(year == 2030 & country == "Aggregated 10_Pred") %>%
+  filter(year == 2030 & country == "Top Contributors_Pred") %>%
   select(total_excl_LULUCF)
 #as.integer(bau_yend_agg10)
 bau_yend_agg10 <- bau_yend_agg10$total_excl_LULUCF
 
 pred_yend_agg10 <- df_agg10_world_2020_2030 %>%
-  filter(year == 2030 & country == "Aggregated 10_Pred") %>%
+  filter(year == 2030 & country == "Top Contributors_Pred") %>%
   select(total_excl_LULUCF)
 #as.integer(pred_yend_agg10)
 pred_yend_agg10 <- pred_yend_agg10$total_excl_LULUCF
@@ -626,7 +638,7 @@ diff_bau_ndc_agg10 <- bau_agg10_df$total_excl_LULUCF[bau_agg10_df$year == 2030] 
 diff_bau_ndc_world_a <- bau_df %>% filter(year == 2030 & country == "World") %>% select(total_excl_LULUCF)
 diff_bau_ndc_world <- diff_bau_ndc_world_a$total_excl_LULUCF - path_2$total_excl_LULUCF[path_2$year == 2030]
 
-diff_pred_ndc_agg10_a <- df_agg10_world_2020_2030 %>% filter(year == 2030 & country == "Aggregated 10_Pred") %>% select(total_excl_LULUCF)
+diff_pred_ndc_agg10_a <- df_agg10_world_2020_2030 %>% filter(year == 2030 & country == "Top Contributors_Pred") %>% select(total_excl_LULUCF)
 diff_pred_ndc_agg10 <- diff_pred_ndc_agg10_a$total_excl_LULUCF - ndc_line$total_excl_LULUCF[ndc_line$year == 2030]
 
 diff_pred_ndc_world_a <- df_agg10_world_2020_2030 %>% filter(year == 2030 & country == "World_Pred") %>% select(total_excl_LULUCF)
@@ -641,24 +653,27 @@ diff_pred_ndc_world_1pt5 <- diff_pred_ndc_world_a$total_excl_LULUCF - path_1pt5$
 plot_agg10_nworld_over_time <- df_agg_top_10_n_world_2015 %>%
   ggplot(aes(year, total_excl_LULUCF, color = country,labels = NULL)) +
   geom_line(linewidth = 1.2) +
-  coord_cartesian(xlim = c(1900, 2020), ylim = c(0, 50), expand = FALSE) +
+  coord_cartesian(xlim = c(1920, 2020), ylim = c(0, 50), expand = FALSE) +
   theme_classic() +
   scale_color_manual(values = c("#3CA4BD","#009E78")) +
   #scale_color_paletteer_d("palettetown::celebi") +
   theme(axis.line.y = element_blank(),
+        axis.ticks.y.left = element_blank(),
         text = element_text(family = "Lato"),
-        plot.title = element_text(hjust = 0.5),
-        plot.subtitle = element_text(hjust = 0.5),
+       # plot.title = element_text(hjust = 0.5),
+       # plot.subtitle = element_text(hjust = 0.5),
         panel.grid.major.y = element_line(size = .15, color = "grey"),
         plot.caption = element_text(hjust = 0),
-        legend.position = "bottom") +
+        legend.position = "bottom",
+        legend.title.position = "top",
+        legend.title = element_blank()) +
   labs(x = "Year",
        y = "CO2e",
-       subtitle = "Aggregated Annual GHG Emissions**, 1980 - 2020",
-       title = "Ten Greatest Emitters* Versus Global Emissions",
+       subtitle = "Aggregated Annual GHG Emissions**, 1920 - 2020\n",
+       title = "Ten Greatest Emitters* vs Global Emissions",
        caption = "*In 2015
-**Excluding LULUCF",
-       fill = "Country")
+**Excluding LULUCF
+Top Contributors: China, United States, India, Russia, Japan, Brazil, Iran, Germany, Indonesia, and Saudi Arabia")
 
 plot_agg10_nworld_over_time
 ```
@@ -698,17 +713,18 @@ Nov 2016",
   scale_color_manual(values = mypalette2) +
   #scale_color_paletteer_d("palettetown::celebi") +
   theme(axis.line.y = element_blank(),
+        axis.ticks.y.left = element_blank(),
         text = element_text(family = "Lato"),
-        plot.title = element_text(hjust = 0.5),
-        plot.subtitle = element_text(hjust = 0.5),
+      #  plot.title = element_text(hjust = 0.5),
+      #  plot.subtitle = element_text(hjust = 0.5),
         panel.grid.major.y = element_line(size = .15, color = "grey"),
         plot.caption = element_text(hjust = 0),
         legend.position = "bottom",
         legend.title = element_blank()) +
   labs(x = "Year",
        y = "Gt CO2e",
-       subtitle = "Aggregated Annual GHG Emissions** & Paris Agreement Pledges",
-       title = "Ten Greatest Emitters* vs Global Emissions",
+       title = "Aggregated Annual GHG Emissions** & Paris Agreement Pledges",
+       subtitle = "Ten Greatest Emitters* vs Global Emissions\n",
        caption = "*In 2015
 **Excluding LULUCF",
        fill = "Country")
@@ -723,13 +739,8 @@ plot_agg_10_n_world_2015_TWO <- df_agg_top_10_n_world_2015 %>%
   ggplot(aes(year, total_excl_LULUCF, color = country)) +
   geom_line(linewidth = 1.4) +
   geom_vline(xintercept = 2015.5, color = "grey", size = 8, alpha = .15) +
-  geom_text(aes(x = 2014.6, y = 36, 
-                label = "Paris Climate Agreement
-                Signed Dec 2015"), size = 2.8, color = "#90A0A0FF", hjust = "right") +
-  geom_text(aes(x = 2016.4, y = 14, 
-                label = "NDC Enforcement
-Nov 2016", 
-                family = "Lato"), size = 2.8, color = "#90A0A0FF", hjust = "left") +
+  geom_text(aes(x = 2014.6, y = 36, label = "Paris Climate Agreement\nSigned Dec 2015"), size = 2.8, color = "#90A0A0FF", hjust = "right") +
+  geom_text(aes(x = 2016.4, y = 14, label = "NDC Enforcement\nNov 2016", family = "Lato"), size = 2.8, color = "#90A0A0FF", hjust = "left") +
   geom_line(data = df_agg10_world_2020_2030, aes(year, total_excl_LULUCF, color = country), linewidth = 1.4) + #2021-2030
   geom_line(data = bau_df_2, aes(year, total_excl_LULUCF, color = country), linewidth = 1, alpha = .5) + #bau 
   geom_line(data = ndc_line, aes(year, total_excl_LULUCF), linewidth = .9) + #ndc line
@@ -737,17 +748,17 @@ Nov 2016",
   geom_line(data = path_1pt5, aes(year, total_excl_LULUCF, color = "1.5°"), linewidth = 1.1) +
   geom_line(data = path_2, aes(year, total_excl_LULUCF, color = "2°"), linewidth = 1.1) +
   geom_segment(x = 2030.7, y = y_start_world, xend = 2030.7, yend = pred_yend_world, 
-               arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#ccfd10") +
+               arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#8fdc11") +
   geom_segment(x = 2033, y = y_start_world, xend = 2033, yend = bau_yend_world, 
-               arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#ccfd10") +
+               arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#8fdc11") +
   geom_text(aes(x = 2030.4, y = 43, label = "18.36", family = "Roboto Condensed"), 
             hjust = "right", size = 2.8, color = "#607070F1") +
   geom_text(aes(x = 2032.7, y = 45, label = "24.88", family = "Roboto Condensed"), 
             hjust = "right", size = 2.8, color = "#607070F1") +
   geom_segment(x = 2035.5, y = y_start_world_1pt5, xend = 2035.5, yend = pred_yend_world, 
-               arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#8fdc11") +
+               arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#1dd212") +
   geom_segment(x = 2037.8, y = y_start_world_1pt5, xend = 2037.8, yend = bau_yend_world, 
-               arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#8fdc11") + 
+               arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#1dd212") + 
   geom_text(aes(x = 2035.2, y = 43, label = "19.90", family = "Roboto Condensed"), 
             hjust = "right", size = 2.8, color = "#607070F1") +
   geom_text(aes(x = 2037.5, y = 45, label = "26.43", family = "Roboto Condensed"), 
@@ -757,16 +768,17 @@ Nov 2016",
   scale_color_manual(values = mypalette3) +
   #scale_color_paletteer_d("palettetown::celebi") +
   theme(axis.line.y = element_blank(),
+        axis.ticks.y.left = element_blank(),
         text = element_text(family = "Lato"),
-        plot.title = element_text(hjust = 0.5),
-        plot.subtitle = element_text(hjust = 0.5),
+       # plot.title = element_text(hjust = 0.5),
+       # plot.subtitle = element_text(hjust = 0.5),
         panel.grid.major.y = element_line(size = .15, color = "grey"),
         plot.caption = element_text(hjust = 0),
         legend.position = "bottom",
         legend.title = element_blank()) +
   labs(x = "Year",
        y = "Gt CO2e",
-       subtitle = "Aggregated Annual GHG Emissions** & Global Temperature Pathways",
+       subtitle = "Aggregated Annual GHG Emissions** & Global Temperature Pathways\n",
        title = "Ten Greatest Emitters* vs Global Emissions",
        caption = "*In 2015
 **Excluding LULUCF",
@@ -776,3 +788,4 @@ plot_agg_10_n_world_2015_TWO
 ```
 
 <img src="Missed-Benchmarks_files/figure-gfm/unnamed-chunk-29-1.png" style="display: block; margin: auto;" />
+\`\`\`
