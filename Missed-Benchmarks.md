@@ -75,8 +75,7 @@ global_totals_vs_lulucf <- global_totals_vs_lulucf %>%
   coord_cartesian(xlim = c(1970, 2020.5), expand = FALSE) +
   scale_y_continuous(limits = c(-3, 50)) +
   labs(x= "Year", y = "Gt CO2e", color = element_blank(),
-       title = "Effect of LULUCF on Global Greenhouse Gas Emission Totals
-       ") +
+       title = "Effect of LULUCF on Global Greenhouse Gas Emission Totals\n") +
   theme_classic() +
   theme(legend.position = c(0.15, 0.85), 
         legend.key.size = unit(0.2, "cm"), 
@@ -788,4 +787,5 @@ plot_agg_10_n_world_2015_TWO
 ```
 
 <img src="Missed-Benchmarks_files/figure-gfm/unnamed-chunk-29-1.png" style="display: block; margin: auto;" />
+
 \`\`\`
