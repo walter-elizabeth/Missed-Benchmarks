@@ -722,8 +722,8 @@ Nov 2016",
         legend.title = element_blank()) +
   labs(x = "Year",
        y = "Gt CO2e",
-       title = "Aggregated Annual GHG Emissions** & Paris Agreement Pledges",
-       subtitle = "Ten Greatest Emitters* vs Global Emissions\n",
+       subtitle = "Aggregated Annual GHG Emissions** & Paris Agreement Pledges\n",
+       title = "Ten Greatest Emitters* vs Global Emissions",
        caption = "*In 2015
 **Excluding LULUCF",
        fill = "Country")
