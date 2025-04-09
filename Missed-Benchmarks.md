@@ -707,7 +707,7 @@ Nov 2016",
             hjust = "right", size = 2.8, color = "#607070F1") +
   geom_text(aes(x = 2032.7, y = diff_bau_ndc_agg10+3, label = "23.34", family = "Roboto Condensed"), 
             hjust = "right", size = 2.8, color = "#607070F1") +
-  coord_cartesian(xlim = c(2000, 2034), ylim = c(0, 60), expand = FALSE) +
+  coord_cartesian(xlim = c(2000, 2034), ylim = c(0, 61), expand = FALSE) +
   theme_classic() +
   scale_color_manual(values = mypalette2) +
   #scale_color_paletteer_d("palettetown::celebi") +
@@ -727,6 +727,33 @@ Nov 2016",
        caption = "*In 2015
 **Excluding LULUCF",
        fill = "Country")
+
+angle1 <- 7
+angle2 <- 8
+plot_agg_10_n_world_2015 <- plot_agg_10_n_world_2015 +
+  annotate(geom = "text", 
+           x = 2023, 
+           y = 36.6, 
+           label = "BAU", 
+           color = "#607070F1", 
+           angle = angle1,
+           size = 2.1) +
+  annotate(geom = "text", 
+           x = 2023, 
+           y = 55, 
+           label = "BAU", 
+           color = "#607070F1", 
+           angle = angle2,
+           size = 2.1) +
+  annotate(geom = "text",
+           x = 2031.7,
+           y = 42,
+           label = "EMISSIONS\nGAP",
+           color = "#466870",
+           size = 3.7,
+           family = "Tw Cen MT Condensed",
+           style = "ExtraBold")
+
 plot_agg_10_n_world_2015
 ```
 
@@ -737,7 +764,7 @@ plot_agg_10_n_world_2015
 plot_agg_10_n_world_2015_TWO <- df_agg_top_10_n_world_2015 %>%
   ggplot(aes(year, total_excl_LULUCF, color = country)) +
   geom_line(linewidth = 1.4) +
-  geom_vline(xintercept = 2015.5, color = "grey", size = 8, alpha = .15) +
+  annotate("segment", x = 2015.5, y = 0, xend = 2015.5, size = 6, yend = 61, color = "grey", alpha = .15) +
   geom_text(aes(x = 2014.6, y = 36, label = "Paris Climate Agreement\nSigned Dec 2015"), size = 2.8, color = "#90A0A0FF", hjust = "right") +
   geom_text(aes(x = 2016.4, y = 14, label = "NDC Enforcement\nNov 2016", family = "Lato"), size = 2.8, color = "#90A0A0FF", hjust = "left") +
   geom_line(data = df_agg10_world_2020_2030, aes(year, total_excl_LULUCF, color = country), linewidth = 1.4) + #2021-2030
@@ -782,6 +809,33 @@ plot_agg_10_n_world_2015_TWO <- df_agg_top_10_n_world_2015 %>%
        caption = "*In 2015
 **Excluding LULUCF",
        fill = "Country")
+
+angle1 <- 7
+angle2 <- 8
+
+plot_agg_10_n_world_2015_TWO <- plot_agg_10_n_world_2015_TWO +
+  annotate(geom = "text", 
+           x = 2023, 
+           y = 36.6, 
+           label = "BAU", 
+           color = "#607070F1", 
+           angle = angle1,
+           size = 2.1) +
+  annotate(geom = "text", 
+           x = 2023, 
+           y = 55, 
+           label = "BAU", 
+           color = "#607070F1", 
+           angle = angle2,
+           size = 2.1) +
+  annotate(geom = "text",
+           x = 2035,
+           y = 60,
+           label = "EMISSIONS\nGAP",
+           color = "#466870",
+           size = 3.7,
+           family = "Tw Cen MT Condensed",
+           style = "ExtraBold")
 
 plot_agg_10_n_world_2015_TWO
 ```
