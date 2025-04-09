@@ -703,7 +703,7 @@ Nov 2016",
                arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#073F80") +
   geom_segment(x = 2033, y = y_start_agg10, xend = 2033, yend = bau_yend_agg10, 
                arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#073F80") +
-  geom_text(aes(x = 2030.4, y = diff_pred_ndc_agg10+5, label = "19.02", family = "Roboto Condensed"), 
+  geom_text(aes(x = 2030.4, y = diff_pred_ndc_agg10+5, label = "19.01", family = "Roboto Condensed"), 
             hjust = "right", size = 2.8, color = "#607070F1") +
   geom_text(aes(x = 2032.7, y = diff_bau_ndc_agg10+3, label = "23.34", family = "Roboto Condensed"), 
             hjust = "right", size = 2.8, color = "#607070F1") +
