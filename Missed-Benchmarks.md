@@ -1,4 +1,4 @@
-Missed Benchmarks: Predicting the 2030 Emissions Gap
+Missed Benchmarks:
 ================
 Elizabeth Walter
 
@@ -70,14 +70,15 @@ global_totals_vs_lulucf <- world %>%
 
 global_totals_vs_lulucf <- global_totals_vs_lulucf %>%
   ggplot(aes(year, GtCO2e, color = category)) +
-  geom_line(aes(year, GtCO2e), linewidth = 1.2) + 
+  geom_line(aes(year, GtCO2e), linewidth = 1.2) +
   geom_hline(yintercept = 0, linewidth = .5) +
   coord_cartesian(xlim = c(1970, 2020.5), expand = FALSE) +
   scale_y_continuous(limits = c(-3, 50)) +
   labs(x= "Year", y = "Gt CO2e", color = element_blank(),
-       title = "Effect of LULUCF on Global Greenhouse Gas Emission Totals\n") +
+       title = "Effect of LULUCF on Global Greenhouse Gas Emission Totals
+       ") +
   theme_classic() +
-  theme(legend.position = c(0.15, 0.91), 
+  theme(legend.position = c(0.15, 0.85), 
         legend.key.size = unit(0.2, "cm"), 
         legend.key.spacing.y = unit(.2, "cm"),
         legend.background = element_rect(fill = "white", color = 1), 
@@ -88,7 +89,6 @@ global_totals_vs_lulucf <- global_totals_vs_lulucf %>%
         text = element_text(family = "Lato"))
 
 
-# graphing the global observations of total_incl_LULUCF, total_excl_LULUCF, and LULUCF over time
 
 global_totals_vs_lulucf + scale_color_manual(values = c("#A8D2F9FF","#226670", "#3CA4BD"))
 ```
@@ -208,17 +208,9 @@ plot_dfs_combined <- dfs_combined %>%
   coord_cartesian(xlim = c(1950,2020), expand = FALSE) +
   theme_classic() +
   scale_fill_manual(values = mypalette) +
-#  scale_fill_paletteer_d("palettetown::snubbull") +
-#  scale_fill_paletteer_d("palettetown::mr_mime") +
-#  scale_fill_paletteer_d("ggthemes::Green_Orange_Teal") +
-#  scale_fill_paletteer_d("IslamicArt::samarqand") +
-#  scale_fill_paletteer_d("ggprism::floral2") + 
-#  scale_fill_paletteer_d("ggthemes::hc_fg") + 
   theme(text = element_text(family = "Lato"),
         axis.ticks.y.left = element_blank(),
         axis.line.y = element_blank(),
-       # plot.title = element_text(hjust = 0.5),
-      #  plot.subtitle = element_text(hjust = 0.5),
         panel.grid.major.y = element_line(color = "grey"),
         plot.caption = element_text(hjust = 0)) +
   labs(x = "Year",
@@ -239,8 +231,30 @@ plot_dfs_combined
 
 co2_1850_2015 <- co2_1850 %>%
   filter(year == 2015) %>%
-  arrange(desc(total_excl_LULUCF)) 
+  arrange(desc(total_excl_LULUCF))  
 
+options(pillar.sigfig = 6)
+print(co2_1850_2015 %>% filter(year == 2015) %>%
+  select(country, total_excl_LULUCF, total_incl_LULUCF, LULUCF) %>%
+  arrange(desc(total_excl_LULUCF)))
+```
+
+    ## # A tibble: 207 × 4
+    ##    country       total_excl_LULUCF total_incl_LULUCF     LULUCF
+    ##    <chr>                     <dbl>             <dbl>      <dbl>
+    ##  1 China                 12.7866           11.9384   -0.848230 
+    ##  2 United States          6.78486           6.04640  -0.738464 
+    ##  3 India                  2.91943           2.62143  -0.297995 
+    ##  4 Russia                 2.06200           1.45604  -0.605961 
+    ##  5 Japan                  1.32334           1.26709  -0.0562445
+    ##  6 Brazil                 1.16606           1.38636   0.220306 
+    ##  7 Iran                   0.929019          0.948710  0.0196911
+    ##  8 Germany                0.899134          0.881457 -0.0176776
+    ##  9 Indonesia              0.828574          1.47743   0.648858 
+    ## 10 Saudi Arabia           0.751564          0.742324 -0.0092401
+    ## # ℹ 197 more rows
+
+``` r
 # list of top 10 countries
 top_10_2015_list <- head(co2_1850_2015$country, 10)
   
@@ -646,7 +660,78 @@ diff_pred_ndc_world <- diff_pred_ndc_world_a$total_excl_LULUCF - path_2$total_ex
 
 diff_bau_ndc_world_1pt5 <- diff_bau_ndc_world_a$total_excl_LULUCF - path_1pt5$total_excl_LULUCF[path_1pt5$year == 2030] 
 diff_pred_ndc_world_1pt5 <- diff_pred_ndc_world_a$total_excl_LULUCF - path_1pt5$total_excl_LULUCF[path_1pt5$year == 2030]
+
+
+print("top 10 bau and ndc gap:")
 ```
+
+    ## [1] "top 10 bau and ndc gap:"
+
+``` r
+print(diff_bau_ndc_agg10)
+```
+
+    ## [1] 23.33972
+
+``` r
+print("top 10 predicted and ndc gap:")
+```
+
+    ## [1] "top 10 predicted and ndc gap:"
+
+``` r
+print(diff_pred_ndc_agg10)
+```
+
+    ## [1] 19.01698
+
+``` r
+print("world bau and 2 deg gap:")
+```
+
+    ## [1] "world bau and 2 deg gap:"
+
+``` r
+print(diff_bau_ndc_world)
+```
+
+    ## [1] 24.88286
+
+``` r
+print("world bau and 1.5 deg gap:")
+```
+
+    ## [1] "world bau and 1.5 deg gap:"
+
+``` r
+print(diff_bau_ndc_world_1pt5)
+```
+
+    ## [1] 29.85469
+
+``` r
+print("world predicted and 2 deg gap:")
+```
+
+    ## [1] "world predicted and 2 deg gap:"
+
+``` r
+print(diff_pred_ndc_world)
+```
+
+    ## [1] 18.35595
+
+``` r
+print("world predicted and 1.5 deg gap:")
+```
+
+    ## [1] "world predicted and 1.5 deg gap:"
+
+``` r
+print(diff_pred_ndc_world_1pt5)
+```
+
+    ## [1] 23.32777
 
 ``` r
 plot_agg10_nworld_over_time <- df_agg_top_10_n_world_2015 %>%
@@ -667,7 +752,7 @@ plot_agg10_nworld_over_time <- df_agg_top_10_n_world_2015 %>%
         legend.title.position = "top",
         legend.title = element_blank()) +
   labs(x = "Year",
-       y = "CO2e",
+       y = "Gt CO2e",
        subtitle = "Aggregated Annual GHG Emissions**, 1920 - 2020\n",
        title = "Ten Greatest Emitters* vs Global Emissions",
        caption = "*In 2015
@@ -710,7 +795,6 @@ Nov 2016",
   coord_cartesian(xlim = c(2000, 2034), ylim = c(0, 61), expand = FALSE) +
   theme_classic() +
   scale_color_manual(values = mypalette2) +
-  #scale_color_paletteer_d("palettetown::celebi") +
   theme(axis.line.y = element_blank(),
         axis.ticks.y.left = element_blank(),
         text = element_text(family = "Lato"),
@@ -727,7 +811,7 @@ Nov 2016",
        caption = "*In 2015
 **Excluding LULUCF",
        fill = "Country")
-
+  
 angle1 <- 7
 angle2 <- 8
 plot_agg_10_n_world_2015 <- plot_agg_10_n_world_2015 +
@@ -764,6 +848,7 @@ plot_agg_10_n_world_2015
 plot_agg_10_n_world_2015_TWO <- df_agg_top_10_n_world_2015 %>%
   ggplot(aes(year, total_excl_LULUCF, color = country)) +
   geom_line(linewidth = 1.4) +
+  #geom_vline(xintercept = 2015.5, color = "grey", size = 8, alpha = .15, ylim(0,60)) +
   annotate("segment", x = 2015.5, y = 0, xend = 2015.5, size = 6, yend = 61, color = "grey", alpha = .15) +
   geom_text(aes(x = 2014.6, y = 36, label = "Paris Climate Agreement\nSigned Dec 2015"), size = 2.8, color = "#90A0A0FF", hjust = "right") +
   geom_text(aes(x = 2016.4, y = 14, label = "NDC Enforcement\nNov 2016", family = "Lato"), size = 2.8, color = "#90A0A0FF", hjust = "left") +
@@ -785,14 +870,13 @@ plot_agg_10_n_world_2015_TWO <- df_agg_top_10_n_world_2015 %>%
                arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#1dd212") +
   geom_segment(x = 2037.8, y = y_start_world_1pt5, xend = 2037.8, yend = bau_yend_world, 
                arrow = arrow(length = unit(2.3, "mm")), linewidth = 2.3, color = "#1dd212") + 
-  geom_text(aes(x = 2035.2, y = 43, label = "19.90", family = "Roboto Condensed"), 
+  geom_text(aes(x = 2035.2, y = 43, label = "23.33", family = "Roboto Condensed"), 
             hjust = "right", size = 2.8, color = "#607070F1") +
-  geom_text(aes(x = 2037.5, y = 45, label = "26.43", family = "Roboto Condensed"), 
+  geom_text(aes(x = 2037.5, y = 45, label = "29.85", family = "Roboto Condensed"), 
             hjust = "right", size = 2.8, color = "#607070F1") +
   coord_cartesian(xlim = c(2000, 2038.5), ylim = c(0, 65), expand = FALSE) +
   theme_classic() +
   scale_color_manual(values = mypalette3) +
-  #scale_color_paletteer_d("palettetown::celebi") +
   theme(axis.line.y = element_blank(),
         axis.ticks.y.left = element_blank(),
         text = element_text(family = "Lato"),
@@ -809,6 +893,7 @@ plot_agg_10_n_world_2015_TWO <- df_agg_top_10_n_world_2015 %>%
        caption = "*In 2015
 **Excluding LULUCF",
        fill = "Country")
+
 
 angle1 <- 7
 angle2 <- 8
@@ -841,5 +926,3 @@ plot_agg_10_n_world_2015_TWO
 ```
 
 <img src="Missed-Benchmarks_files/figure-gfm/unnamed-chunk-29-1.png" style="display: block; margin: auto;" />
-
-\`\`\`
