@@ -789,7 +789,7 @@ plot_agg_10_n_world_2015_TWO <- df_agg_top_10_n_world_2015 %>%
             hjust = "right", size = 2.8, color = "#607070F1") +
   geom_text(aes(x = 2037.5, y = 45, label = "26.43", family = "Roboto Condensed"), 
             hjust = "right", size = 2.8, color = "#607070F1") +
-  coord_cartesian(xlim = c(2000, 2038.5), ylim = c(0, 60), expand = FALSE) +
+  coord_cartesian(xlim = c(2000, 2038.5), ylim = c(0, 65), expand = FALSE) +
   theme_classic() +
   scale_color_manual(values = mypalette3) +
   #scale_color_paletteer_d("palettetown::celebi") +
