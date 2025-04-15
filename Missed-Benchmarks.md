@@ -71,7 +71,6 @@ global_totals_vs_lulucf <- world %>%
 global_totals_vs_lulucf <- global_totals_vs_lulucf %>%
   ggplot(aes(year, GtCO2e, color = category)) +
   geom_line(aes(year, GtCO2e), linewidth = 1.2) +
-  geom_hline(yintercept = 0, linewidth = .5) +
   coord_cartesian(xlim = c(1970, 2020.5), expand = FALSE) +
   scale_y_continuous(limits = c(-3, 50)) +
   labs(x= "Year", y = "Gt CO2e", color = element_blank(),
