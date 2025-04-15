@@ -5,7 +5,7 @@
 
 3. You must come up with some analysis—using tools from the course—which relates your data to either a prediction or a policy conclusion. For example, if you collected data from Major League Baseball games, you could try to “predict” whether a left-hander was pitching based solely on the outcomes of the batsmen. If you assembled data from COVID lockdowns and unemployment, you could test hypotheses about the labor market and its reaction to COVID.
 
-You must write and present your analysis as if presenting to a C-suite executive. Generally speaking, such executives are not particularly analytically oriented, and therefore your explanations need to be clear, concise (their time is valuable) and contain actionable (or valuable) information. The report should be no more than 3 pages (excluding figures and tables). Concretely, this requires a written memo, which describes the data, analyses, and results. This must be clear and easy to understand for a non-expert in your field. Tell the reader what data you used and what you found, not about the process.
+4. You must write and present your analysis as if presenting to a C-suite executive. Generally speaking, such executives are not particularly analytically oriented, and therefore your explanations need to be clear, concise (their time is valuable) and contain actionable (or valuable) information. The report should be no more than 3 pages (excluding figures and tables). Concretely, this requires a written memo, which describes the data, analyses, and results. This must be clear and easy to understand for a non-expert in your field. Tell the reader what data you used and what you found, not about the process.
 
 ### Outline
 
