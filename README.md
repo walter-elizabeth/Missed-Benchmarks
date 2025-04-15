@@ -1,6 +1,6 @@
 # Missed Benchmarks: Measuring the 2030 Emissions Gap 
 
-## SSC 442 Final Project, Research Report/Memo-Style Writing Sample
+## SSC 442 Final Project, Research Report & Memo-Style Writing Samples
 
 This project was completed as part of my senior capstone course for my minor in Social Science Quantitative Data Analytics for my Economics B.A.
 
