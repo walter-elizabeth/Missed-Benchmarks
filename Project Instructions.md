@@ -25,7 +25,7 @@ Make predictions to form the questions that you will study. Declare what you thi
 #### Data
 Given your motivations, limits on feasibility, and hypotheses, describe the data you use. 
 
-### Analyses
+#### Analyses
 Generate the analyses relevant to your hypotheses and interests. Here you must include three figures and must describe what they contain in simple, easy to digest language. Why did you visualize these elements? Your analyses also must include brief discussion.
 
 #### Conclusion
