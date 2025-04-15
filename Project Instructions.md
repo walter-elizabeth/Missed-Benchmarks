@@ -30,7 +30,7 @@ Generate the analyses relevant to your hypotheses and interests. Here you must i
 What caveats should we consider? Do you believe this is a truly causal relationship? Or, if a predictive project, how well did you do and should we bet money / diagnose / rely on your prediction? Why does any of this matter to the decision-maker?
 
 
-## I will evaluate the following four elements of your project:
+## The following four elements of your project will be evaluated:
 
 1. Technical skills: Was the project easy? Does it showcase mastery of R for data analysis? (20%)
 
