@@ -2,7 +2,7 @@
 
 ## SSC 442 Final Project, Research Report & Business Memo-Style Writing Samples
 
-This project was initially completed as part of my senior capstone course for my minor in Social Science Quantitative Data Analytics for my Economics B.A. In the spring of 2025, I decided to re-do the project with better, updated data. I also expanded on the scope of the project, changing it from a short memo to a more research and policy oriented paper.
+In the spring of 2025, I decided to re-do a project initially completed as part of my senior capstone course for my minor in Social Science Quantitative Data Analytics for my Economics B.A. with better, updated data. I also expanded on the scope of the project, changing it from a short memo to a more research and policy oriented paper.
 
 The focus of the project was to devise a question to investigate, find and merge datasets, create data visualizations, and put said visualizations into a brief memo meant for a C-Suite executive explaining your findings. In the new project, more background information, analysis, and solutions for industry-specific sources of emissions and mitigations were included.
 
