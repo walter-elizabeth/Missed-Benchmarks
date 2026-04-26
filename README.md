@@ -14,4 +14,4 @@ I have included the project instructions, final reports (the concise memo and th
 
 [Executive Summary]https://github.com/walter-elizabeth/Missed-Benchmarks/blob/main/Missed%20Benchmarks%20Executive%20Summary.pdf
 
-[Technical Report]
+[Technical Report]https://github.com/walter-elizabeth/Missed-Benchmarks/blob/main/Missed%20Benchmarks%20Report.pdf
